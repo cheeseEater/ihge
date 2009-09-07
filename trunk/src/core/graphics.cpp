@@ -89,7 +89,7 @@ void CALL HGE_Impl::Gfx_EndScene()
 		pCurTarget->target->DetachFromRender();
 	} 
 	else
-		SwapBuffers(GetDC(hwnd));
+		System_SwapBuffers();
 	
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
@@ -426,7 +426,7 @@ bool HGE_Impl::_GfxInit()
 //	UINT nModes, i;
 	
 // Init Open GL
-							
+/*							
 	HDC hDC;
 	HGLRC hRC;
 	long gl_error;
@@ -443,9 +443,11 @@ bool HGE_Impl::_GfxInit()
 	
 	System_Log("Initializing Graphix");
 
-	
-	
 	wglMakeCurrent(hDC, hRC);
+*/
+	long gl_error;	
+	
+	
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
@@ -507,7 +509,6 @@ bool HGE_Impl::_GfxInit()
 
 // Create vertex batch buffer
 
-//	VertArray=0;
 	textures=0;
 
 // Init all stuff that can be lost
@@ -538,6 +539,7 @@ int HGE_Impl::_format_id(D3DFORMAT fmt)
 void HGE_Impl::_AdjustWindow()
 {
 	//TODO: insert code here
+#if !TARGET_OS_IPHONE
 	RECT *rc;
 	LONG style;
 
@@ -556,6 +558,7 @@ void HGE_Impl::_AdjustWindow()
 		SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_TOPMOST);
 	    SetWindowPos(hwnd, HWND_TOPMOST, rc->left, rc->top, rc->right-rc->left, rc->bottom-rc->top, SWP_FRAMECHANGED);
 	}
+#endif
 
 }
 

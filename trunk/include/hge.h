@@ -17,6 +17,7 @@
 
 #if !TARGET_OS_IPHONE
 	#include <windows.h>
+//#define TARGET_OS_IPHONE	1
 #else
 	#define HGE_IPHONE
 	#include "hge_iphone.h"
@@ -31,11 +32,33 @@
 #endif
 
 #if !TARGET_OS_IPHONE
-#define CALL  __stdcall
+
+#define CALL			__stdcall
+
 #else
+
 #define CALL    
 #define WINAPI    
+
 #endif
+
+
+#ifndef _MAX_PATH
+#define _MAX_PATH		512
+#endif
+
+#ifndef MAX_PATH
+#define	MAX_PATH		512
+#endif
+
+#ifndef FALSE
+#define FALSE			0
+#endif
+
+#ifndef TRUE
+#define TRUE			1
+#endif
+
 
 #ifdef __BORLANDC__
  #define floorf (float)floor
@@ -53,12 +76,53 @@
 
 
 /*
-** Common data types
+** Common Win32 derived data types
+*  TODO: remove them all!!!
 */
-#ifndef DWORD
+#if TARGET_OS_IPHONE
 typedef unsigned long       DWORD;
 typedef unsigned short      WORD;
 typedef unsigned char       BYTE;
+typedef long				LONG;
+typedef long				HWND;
+typedef long				HINSTANCE;
+typedef long				HMODULE;
+typedef long				HANDLE;
+typedef char				TCHAR;
+typedef long				HDC;
+typedef long				HGLRC;
+
+typedef struct _RECT { 
+    LONG left; 
+    LONG top; 
+    LONG right; 
+    LONG bottom; 
+} RECT; 
+
+typedef long				HRESULT;
+
+typedef struct _FILETIME { 
+    DWORD dwLowDateTime; 
+    DWORD dwHighDateTime; 
+} FILETIME;
+
+typedef struct _WIN32_FIND_DATA {
+    DWORD dwFileAttributes; 
+    FILETIME ftCreationTime; 
+    FILETIME ftLastAccessTime; 
+    FILETIME ftLastWriteTime; 
+    DWORD    nFileSizeHigh; 
+    DWORD    nFileSizeLow; 
+    DWORD    dwReserved0; 
+    DWORD    dwReserved1; 
+    TCHAR    cFileName[ MAX_PATH ]; 
+    TCHAR    cAlternateFileName[ 14 ]; 
+} WIN32_FIND_DATA; 
+
+#endif
+
+#ifndef CONST
+#define CONST				const
 #endif
 
 

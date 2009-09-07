@@ -36,8 +36,10 @@
 #define D3DFVF_HGEVERTEX (D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1)
 #define VERTEX_BUFFER_SIZE 4000
 
-
+//TODO: 
+#if !TARGET_OS_IPHONE
 typedef BOOL (WINAPI *GetSystemPowerStatusFunc)(LPSYSTEM_POWER_STATUS);
+#endif
 
 
 struct CRenderTargetList
@@ -90,6 +92,7 @@ public:
 	virtual bool		CALL	System_Initiate();
 	virtual void		CALL	System_Shutdown();
 	virtual bool		CALL	System_Start();
+	virtual void		CALL	System_SwapBuffers();
 	virtual void		CALL	System_SetStateBool  (hgeBoolState   state, bool        value);
 	virtual void		CALL	System_SetStateFunc  (hgeFuncState   state, hgeCallback value);
 	virtual void		CALL	System_SetStateHwnd  (hgeHwndState   state, HWND        value);
@@ -253,7 +256,10 @@ public:
 	// Power
 	int							nPowerStatus;
 	HMODULE						hKrnl32;
+#if !TARGET_OS_IPHONE
+	//TODO:
 	GetSystemPowerStatusFunc	lpfnGetSystemPowerStatus;
+#endif
 
 	void				_InitPowerStatus();
 	void				_UpdatePowerStatus();

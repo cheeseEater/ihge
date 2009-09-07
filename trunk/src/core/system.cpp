@@ -251,6 +251,29 @@ bool CALL HGE_Impl::System_Initiate()
 	Random_Seed();
 	_InitPowerStatus();
 	_InputInit();
+
+
+	//OpenGL init
+	HGLRC hRC;
+
+	
+	hDC = GetDC(pHGE->hwnd);
+	hRC = wglCreateContext(hDC);
+
+	if (hRC == NULL)
+	{
+		System_Log("Creating GL Context Failed with error code: %d", GetLastError());
+		return false;
+	}
+	
+	System_Log("Initializing Graphix");
+
+	
+	
+	wglMakeCurrent(hDC, hRC);
+	///
+
+
 	if(!_GfxInit()) { System_Shutdown(); return false; }
 	if(!_SoundInit()) { System_Shutdown(); return false; }
 
@@ -442,6 +465,11 @@ bool CALL HGE_Impl::System_Start()
 	bActive=false;
 
 	return true;
+}
+
+void CALL HGE_Impl::System_SwapBuffers()
+{
+	SwapBuffers(GetDC(hwnd));
 }
 
 void CALL HGE_Impl::System_SetStateBool(hgeBoolState state, bool value)

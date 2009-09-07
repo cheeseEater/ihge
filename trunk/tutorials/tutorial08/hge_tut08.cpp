@@ -25,6 +25,11 @@
 #include "..\..\include\hgedistort.h"
 #include "..\..\include\hgefont.h"
 
+//remb: katasonov
+//#include <windows.h>
+//reme: katasonov
+
+
 // Pointer to the HGE interface (helper classes require this to work)
 
 HGE			*hge=0;
