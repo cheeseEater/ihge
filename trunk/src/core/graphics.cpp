@@ -536,32 +536,6 @@ int HGE_Impl::_format_id(D3DFORMAT fmt)
 	return 0;
 }
 
-void HGE_Impl::_AdjustWindow()
-{
-	//TODO: insert code here
-#if !TARGET_OS_IPHONE
-	RECT *rc;
-	LONG style;
-
-	if(bWindowed) {rc=&rectW; style=styleW; }
-	else  {rc=&rectFS; style=styleFS; }
-	SetWindowLong(hwnd, GWL_STYLE, style);
-
-	style=GetWindowLong(hwnd, GWL_EXSTYLE);
-	if(bWindowed)
-	{
-		SetWindowLong(hwnd, GWL_EXSTYLE, style & (~WS_EX_TOPMOST));
-	    SetWindowPos(hwnd, HWND_NOTOPMOST, rc->left, rc->top, rc->right-rc->left, rc->bottom-rc->top, SWP_FRAMECHANGED);
-	}
-	else
-	{
-		SetWindowLong(hwnd, GWL_EXSTYLE, style | WS_EX_TOPMOST);
-	    SetWindowPos(hwnd, HWND_TOPMOST, rc->left, rc->top, rc->right-rc->left, rc->bottom-rc->top, SWP_FRAMECHANGED);
-	}
-#endif
-
-}
-
 void HGE_Impl::_Resize(int width, int height)
 {
 	//TODO: insert code here

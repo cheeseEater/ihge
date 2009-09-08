@@ -37,7 +37,7 @@
 #define VERTEX_BUFFER_SIZE 4000
 
 //TODO: 
-#if !TARGET_OS_IPHONE
+#if !HGE_IPHONE
 typedef BOOL (WINAPI *GetSystemPowerStatusFunc)(LPSYSTEM_POWER_STATUS);
 #endif
 
@@ -256,7 +256,7 @@ public:
 	// Power
 	int							nPowerStatus;
 	HMODULE						hKrnl32;
-#if !TARGET_OS_IPHONE
+#if !HGE_IPHONE
 	//TODO:
 	GetSystemPowerStatusFunc	lpfnGetSystemPowerStatus;
 #endif
