@@ -15,11 +15,18 @@
 #pragma warning(disable: 4505)
 #endif
 
-#if !TARGET_OS_IPHONE
+
+#ifndef		WIN32
+//#define		TARGET_OS_IPHONE	1
+#define		HGE_IPHONE		1
+#endif
+
+
+
+#if !HGE_IPHONE
 	#include <windows.h>
 //#define TARGET_OS_IPHONE	1
 #else
-	#define HGE_IPHONE
 	#include "hge_iphone.h"
 #endif
 
@@ -31,7 +38,7 @@
 #define EXPORT
 #endif
 
-#if !TARGET_OS_IPHONE
+#if !HGE_IPHONE
 
 #define CALL			__stdcall
 
@@ -79,15 +86,15 @@
 ** Common Win32 derived data types
 *  TODO: remove them all!!!
 */
-#if TARGET_OS_IPHONE
+#if HGE_IPHONE
 typedef unsigned long       DWORD;
 typedef unsigned short      WORD;
 typedef unsigned char       BYTE;
 typedef long				LONG;
-typedef long				HWND;
+typedef void*				HWND;
 typedef long				HINSTANCE;
 typedef long				HMODULE;
-typedef long				HANDLE;
+typedef void*				HANDLE;
 typedef char				TCHAR;
 typedef long				HDC;
 typedef long				HGLRC;
